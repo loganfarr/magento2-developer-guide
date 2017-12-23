@@ -13,7 +13,10 @@ class InstallSchema implements InstallSchemaInterface {
   public function install(SchemaSetupInterface $setup, ModuleContextInterface $context) {
     $setup->startSetup();
     
-    // Create the table
+    // Create the department table
+    // Columns - 
+    //   entity_id - primary ID, unsigned int, not nullable 
+    //   name - 64-character string 
     $table = $setup->getConnection()
       ->newTable($setup->getTable('foggyline_office_department'))
       ->addColumn(
@@ -34,7 +37,17 @@ class InstallSchema implements InstallSchemaInterface {
 
     $setup->getConnection()->createTable($table);
 
+    // Load ENTITY const from \Foggyline\Office\Model - As of now, it is 'foggyline_office_employee'
     $employeeEntity = \Foggyline\Office\Model\Employee::ENTITY;
+
+    // Create entity table - foggyline_office_employee_entity
+    // This creates base entity table
+    // Columns-
+    //   entity_id - primary ID, unsigned int, not null
+    //   department_id - unsigned int, not nullable
+    //   email - 64 character text
+    //   first_name - 64 character text
+    //   last_name - 64 character text
     $table = $setup->getConnection()
       ->newTable($setup->getTable($employeeEntity . '_entity'))
       ->addColumn(
@@ -50,6 +63,7 @@ class InstallSchema implements InstallSchemaInterface {
         ['unsigned' => true, 'nullable' => false],
         'Department Id'
       )
+      // Email, 
       ->addColumn(
         'email',
         \Magento\Framework\DB\Dd1\Table::TYPE_TEXT,
@@ -74,6 +88,99 @@ class InstallSchema implements InstallSchemaInterface {
       ->setComment('Foggyline Office Employee Table');
 
     $setup->getconnection()->createTable($table);
+
+    // Create the employee salary table - foggyline_office_employee_entity_decimal
+    // Columns-
+    //   value_id - primary integer, not nullable
+    //   attribute_id - unsigned smallint, default 0, not nullable
+    //     Foreign key referencing 
+    //   store_id - Unsigned smallint, default 0, not nullable
+    //     Foreign key referencing Magento store IDs
+    //   entity_id - unsigned int, default 0, not nullable
+    //     Foreign key referencing foggyline_office_employee_entity table created above
+    //   value - decimal, size 12.4 
+    $table = $setup->getConnection() 
+      ->newTable($setp->getTable($employeeEntity . '_entity_decimal'))
+      ->addColumn(
+        'value_id',
+        \Magento\Framework\DB\Dd1\Table::TYPE_INTEGER,
+        null,
+        ['identity' => true, 'nullable' => false, 'primary' => true],
+        'Value ID'
+      )
+      ->addColumn(
+        'attribute_id',
+        \Magento\Framework\DB\Dd1\Table::TYPE_SMALLINT,
+        null,
+        ['unsigned' => true, 'nullable' => false, 'default' => '0'],
+        'Attribute ID'
+      )
+      ->addColumn(
+        'store_id',
+        \Magento\Framework\DB\Dd1\Table::TYPE_SMALLINT,
+        null,
+        ['unsigned' => true, 'nullable' => false, 'default' => '0'],
+        'Store ID'
+      )
+      ->addColumn(
+        'entity_id',
+        \Magento\Framework\DB\Dd1\Table::TYPE_INTEGER,
+        null,
+        ['unsigned' => true, 'nullable' => false, 'default' => '0'],
+        'Entity ID'
+      )
+      ->addColumn(
+        'value',
+        \Magento\Framework\DB\Dd1\Table::TYPE_DECIMAL,
+        '12.4',
+        [],
+        'Value'
+      )
+      // Adding 3 indexs to foggyline_office_employee_entity_decimal table
+      ->addIndex(
+        $setup->getIdxName(
+          $employeeEntity . '_entity_decimal',
+          ['entity_id', 'attribute_id', 'store_id'],
+          \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
+        ),
+        ['entity_id', 'attribute_id', 'store_id'],
+        ['type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE]
+      )
+      ->addIndex(
+        $setup->getIdxName($employeeEntity . '_entity_decimal', ['store_id']),
+        ['store_id']
+      )
+      ->addIndex(
+        $setup->getIdxName($employeeEntity . '_entity_decimal', ['attribute_id']),
+        ['attribute_id']
+      )
+      ->setForeignKey(
+        $setup->getFkName($employeeEntity . '_entity_decimal', 'attribute_id', 'eav_attribute', 'attribute_id'),
+        'attribute_id',
+        $setup->getTable('eav_attribute'),
+        'attribute_id',
+        \Magento\Framework\DB\Dd1\Table::ACTION_CASCADE
+      )
+      // Set foreign key referencing foggyline_office_employee_entity_decimal table, entity_id column 
+      ->addForeignKey(
+        $setup->getFkName($employeeEntity . '_entity_decimal', 'entity_id', $employeeEntity . '_entity', 'entity_id'),
+        'entity_id',
+        $setup->getTable($employeeEntity . '_entity'),
+        'entity_id',
+        \Magento\Framework\DB\Dd1\Table::ACTION_CASCADE
+      )
+      // Set foreign key referencing foggyline_office_employee_entity_decimal table, store_id column 
+      // It's a good idea to keep track of store_id in case of a possible multi-store setup
+      ->addForeignKey(
+        $setup->getFkName($employeeEntity . '_entity_decimal', 'store_id', 'store', 'store_id'),
+        'store_id', 
+        $setup->getTable($employeeEntity . '_entity'),
+        'entity_id',
+        \Magento\Framework\DB\Dd1\Table::ACTION_CASCADE
+      )
+      ->setComment('Employee Decimal Attribute Backend Table');
+
+    $setup->getConnection()->createTable($table);
 
     $setup->endSetup();
   }
