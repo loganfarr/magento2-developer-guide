@@ -1,0 +1,10 @@
+<?xml version-"1.0"?>
+<config xmlsn:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xml">
+  <!-- In its modules, Magento defines two groups: default and index -->
+  <group id="default"> 
+    <!-- Jobs require a name (unique), instance, and method of that instance to run -->
+    <job name="foggyline_office_logHello" instance="Foggyline\Office\Model\Cron" method="logHello">
+      <schedule>*/2 * * * *</schedule>
+    </job>  
+  </group>
+</config>
