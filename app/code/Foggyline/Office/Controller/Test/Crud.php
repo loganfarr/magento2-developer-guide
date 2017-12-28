@@ -74,5 +74,18 @@ class Crud extends \Foggyline\Office\Controller\Test {
       'vat_number' => '456-12-3789',
       'note' => 'Note #3'
     ]);
+
+    // Set messages
+    $resultPage = $this->resultPageFactory->create();
+    $this->messageManager->addSuccess('Success-1');
+    $this->messageManager->addSuccess('Success-2');
+    $this->messageManager->addNotice('Notice-1');
+    $this->messageManager->addNotice('Notice-2');
+    $this->messageManager->addWarning('Warning-1');
+    $this->messageManager->addWarning('Warning-2');
+    $this->messageManager->addError('Error-1');
+    $this->messageManager->addError('Error-2');
+    
+
   }
 }
