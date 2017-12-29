@@ -155,7 +155,7 @@ class InstallSchema implements InstallSchemaInterface {
         $setup->getIdxName($employeeEntity . '_entity_decimal', ['attribute_id']),
         ['attribute_id']
       )
-      ->setForeignKey(
+      ->addForeignKey(
         $setup->getFkName($employeeEntity . '_entity_decimal', 'attribute_id', 'eav_attribute', 'attribute_id'),
         'attribute_id',
         $setup->getTable('eav_attribute'),
