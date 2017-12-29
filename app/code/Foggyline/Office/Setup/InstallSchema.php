@@ -101,7 +101,7 @@ class InstallSchema implements InstallSchemaInterface {
     //     Foreign key referencing foggyline_office_employee_entity table created above
     //   value - decimal, size 12.4 
     $table = $setup->getConnection() 
-      ->newTable($setp->getTable($employeeEntity . '_entity_decimal'))
+      ->newTable($setup->getTable($employeeEntity . '_entity_decimal'))
       ->addColumn(
         'value_id',
         \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
