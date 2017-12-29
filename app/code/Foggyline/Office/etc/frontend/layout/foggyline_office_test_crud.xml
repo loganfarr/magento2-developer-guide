@@ -1,0 +1,23 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+  <head>
+    <title>Office CRUD #layout</title>
+  </head>
+  <body>
+    <container name="foobar" htmlTag="div" htmlClass="foo-bar">
+      <block class="Magento\Framework\View\Element\Text" name="foo">
+        <action method="setText">
+          <argument name="text" xsi:type="string">
+            <![CDATA[<p>The Foo</p>]]>
+          </argument>
+        </action>
+      </block>
+      <block class="Magento\Framework\View\Element\Text" name="bar">
+        <action method="setText">
+          <argument name="text" xsi:type="string">
+            <![CDATA[<p>The Bar</p>]]>
+          </argument>
+        </action>
+      </block>
+    </container>
+  </body>
+</page>
