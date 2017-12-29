@@ -60,6 +60,7 @@ class InstallSchema implements InstallSchemaInterface {
       ->addColumn(
         'department_id',
         \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+        null,
         ['unsigned' => true, 'nullable' => false],
         'Department Id'
       )
