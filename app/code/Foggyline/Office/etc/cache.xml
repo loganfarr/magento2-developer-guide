@@ -1,0 +1,7 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+  <!-- When defining a new cache type, we must specify name and instance -->
+  <type name="foggyline_office" instance="Foggyline\Office\Model\Cache">
+    <label>Foggyline Office Example</label>
+    <description>Example cache from Foggyline Office module.</description>
+  </type>
+</config>

@@ -1,0 +1,7 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+  <!-- Specifying what event we are going to set observers for -->
+  <event name="customer_customer_authenticated">
+    <!-- Specifying observer for above event -->
+    <observer name="foggyline_office_customer_authenticated" instance="Foggyline\Office\Observer\LogCustomerEmail" />
+  </event>
+</config>
