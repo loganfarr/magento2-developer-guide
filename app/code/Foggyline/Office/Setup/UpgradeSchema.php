@@ -22,7 +22,7 @@ class UpgradeSchema implements UpgradeSchemaInterface {
         'department_id',
         $setup->getTable($departmentEntityTable),
         'entity_id',
-        \Magento\Framework\DB\Dd1\Table::ACTION_CASCADE
+        \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
       );
 
     $setup->endSetup();
