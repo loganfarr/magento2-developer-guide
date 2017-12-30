@@ -29,10 +29,10 @@ class UpgradeData implements UpgradeDataInterface {
     $employee->setEmail('john@sales.loc')
       ->setFirstName('John')
       ->setLastName('Doe')
-      ->setServiceYears(3),
-      ->setDob('1983-03-28'),
-      ->setSalary(3800.00),
-      ->setVatNumber('GB123456789'),
+      ->setServiceYears(3)
+      ->setDob('1983-03-28')
+      ->setSalary(3800.00)
+      ->setVatNumber('GB123456789')
       ->setNote('Just some notes about John')
       ->save();
 

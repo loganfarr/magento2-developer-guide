@@ -60,6 +60,7 @@ class InstallSchema implements InstallSchemaInterface {
       ->addColumn(
         'department_id',
         \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+        null,
         ['unsigned' => true, 'nullable' => false],
         'Department Id'
       )
@@ -100,7 +101,7 @@ class InstallSchema implements InstallSchemaInterface {
     //     Foreign key referencing foggyline_office_employee_entity table created above
     //   value - decimal, size 12.4 
     $table = $setup->getConnection() 
-      ->newTable($setp->getTable($employeeEntity . '_entity_decimal'))
+      ->newTable($setup->getTable($employeeEntity . '_entity_decimal'))
       ->addColumn(
         'value_id',
         \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
@@ -154,7 +155,7 @@ class InstallSchema implements InstallSchemaInterface {
         $setup->getIdxName($employeeEntity . '_entity_decimal', ['attribute_id']),
         ['attribute_id']
       )
-      ->setForeignKey(
+      ->addForeignKey(
         $setup->getFkName($employeeEntity . '_entity_decimal', 'attribute_id', 'eav_attribute', 'attribute_id'),
         'attribute_id',
         $setup->getTable('eav_attribute'),
