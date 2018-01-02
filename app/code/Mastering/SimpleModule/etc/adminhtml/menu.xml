@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:NoNamespaceSchemaLocation="">
+  <menu>
+    <add id="Mastering_SampleModule::mastering" title="Mastering" module="Mastering_SampleModule" resource="Mastering_SampleModule::mastering" translate="title" sortOrder="900" />  
+  </menu>
+</config>
