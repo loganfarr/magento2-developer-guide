@@ -1,0 +1,5 @@
+<block class="Magento\Framework\View\Element\Test" name="example_1">
+  <action method="setText">
+    <argument name="text" xsi:type="string"><![CDATA[<p>Text_1</p>]]></argument>
+  </action>
+</block>
