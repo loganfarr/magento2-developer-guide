@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xs:NoNamespaceDeclaration="urn:magento:framework:Module/etc/module.xsd">
+  <router id="standard">
+    <route id="mastering" fromName="mastering">
+      <module name="Mastering_SampleModule" />
+    </route>
+  </router>
+</config>
